@@ -2,6 +2,7 @@
 
 Atelier d'écriture de tests unitaires en Node.js pour le module "Métiers du test" - Campus Numérique Valence.
 Basé sur le travail de Vincent Berthet
+![Node.js CI](https://github.com/EmilieDescours/event-scheduler-jest/workflows/Node.js%20CI/badge.svg)
 
 ## Consignes
 
