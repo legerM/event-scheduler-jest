@@ -28,34 +28,59 @@ export default class EventService {
 
     /**
      * Get the first upcomming event
-     * @return {null | Event}
+     * @return {Event}
      */
     getFirstEvent() {
-        return null; //TODO
+        let listEvents = this.getCheckedList();
+        const sortedEvents = listEvents.sort((a, b) => a.startTime - b.startTime);
+        return sortedEvents[0];
+    }
+
+    getCheckedList() {
+        let listEvents = this.getEvents();
+        for (let i = 0; i < listEvents.length; i++) {
+            const event = listEvents[i];
+            if (event.getStartTime() > event.getEndTime()) {
+                let startTimeEvent = event.startTime;
+                event.startTime = event.endTime;
+                event.endTime = startTimeEvent;
+            }
+        }
+        return listEvents;
     }
 
     /**
      * Get the last upcomming event
-     * @return {null | Event}
+     * @return {Event}
      */
     getLastEvent() {
-        return null; //TODO
+        let listEvents = this.getCheckedList();
+        const sortedEvents = listEvents.sort((a, b) => b.startTime - a.startTime);
+
+        return sortedEvents[0];
     }
 
     /**
      * Get the longest event
-     * @return {null | Event}
+     * @return {Event}
      */
     getLongestEvent() {
-        return null; //TODO
+        let listEvents = this.getCheckedList();
+        const sortedEvents = listEvents.sort((a, b) => ((a.startTime - a.endTime) - (b.startTime - b.endTime)));
+        //console.log(sortedEvents);
+        return sortedEvents[0];
     }
 
     /**
      * get the shortest event
-     * @return {null | Event}
+     * @return {Event}
      */
     getShortestEvent() {
-        return null; //TODO
+        let listEvents = this.getCheckedList();
+        //console.log(listEvents);
+        const sortedEvents = listEvents.sort((a, b) => ((b.startTime - b.endTime) - (a.startTime - a.endTime)));
+        //console.log(sortedEvents);
+        return sortedEvents[0];
     }
 
     // A implementer en TDD
@@ -95,7 +120,8 @@ export default class EventService {
      */
     getCurrentEvents() {
         let now = Date.now();
+        console.log(now);
         return this.hasEventOn(new Date(now));
     }
-    
+
 }
